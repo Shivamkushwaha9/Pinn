@@ -11,6 +11,8 @@
 import torch
 import torch.nn as nn
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
 
@@ -248,7 +250,7 @@ if __name__ == "__main__":
 
     model     = PINN(LAYERS).to(DEVICE)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=3000, gamma=0.5)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=EPOCHS)
 
     print(f"\n{'='*50}")
     print(f"  PINN – 1D Heat Equation Solver")
